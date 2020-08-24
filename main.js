@@ -1,6 +1,6 @@
 /**
 
-    GridController
+    GameController
     - Cells[x][y]
     - renderGrid
         - loops through all Cells to checkState 
@@ -23,10 +23,11 @@
 
 console.log('hello world')
 
-class GridController {
+class GameController {
 
     constructor() {
         this.cells = []
+        this.generations = 0;
         this.generateGrid()
     }
 
@@ -40,19 +41,47 @@ class GridController {
         }
     }
 
+    cycleGeneration() {
+        for (let x = 0; x < this.cells.length; x++) {
+            for (let y = 0; y < this.cells[x].length; y++) {
+                if (this.cells[x][y]._active) {
+                    this.checkForValidity(x, y)
+                }
+            }
+        }
+        this.generations++
+    }
 
+    //FIXME:
+    checkForValidity(_cellX, _cellY) {
+        let _neighbors = 0
+        for (let x = -1; x < 2; x++) {
+            for (let y = -1; y < 2; y++) {
+                if (this.cells[_cellX + x][_cellY + y] != undefined) {
+                    // console.log(this.cells[_cellX + x][_cellY + y]._active)
+                    if (this.cells[_cellX + x][_cellY + y]._active) {
+                        _neighbors++
+                    }
+                }
+            }
+        }
+        if (_neighbors <= 1 || _neighbors >= 4) {
+            // console.log('died');
+            this.cells[_cellX, _cellY]._active = false;
+        }
+    }
 }
 
 class Cell {
+
     constructor(_x, _y, _active) {
         this._x = _x
         this._y = _y
         this._active = _active
         // console.log(this._x + " " + this._y + " " + this._active)
-    }
-
-    checkState() {
-
+        if (_x == 3) {
+            this.toggleActive()
+        }
     }
 
     toggleActive() {
@@ -62,4 +91,9 @@ class Cell {
     }
 }
 
-const gridController = new GridController()
+const gameController = new GameController()
+const nextButton = document.getElementById('data-next-button')
+
+nextButton.addEventListener('click', function () {
+    gameController.cycleGeneration()
+})
