@@ -7,6 +7,11 @@
     - resetGrid
         - all Grid !active.
     - initGrid
+    - drawGrid
+        - creates grid of divs off of cells[x]
+            - styling sets div size
+        - loop through all of cells
+            - set innerText to cell.draw()
 
     Cell
     - bool active
@@ -35,13 +40,13 @@ class GameController {
         for (let x = 0; x < 10; x++) {
             this.cells[x] = []
             for (let y = 0; y < 10; y++) {
-                let _nu = new Cell(x, y, false)
-                this.cells[x].push(_nu)
+                let _new = new Cell(x, y, false)
+                this.cells[x].push(_new)
             }
         }
     }
 
-    cycleGeneration() {
+    cycleGeneration() { // DUPLICATE A GRID THEN REASSIGN AT END.
         for (let x = 0; x < this.cells.length; x++) {
             for (let y = 0; y < this.cells[x].length; y++) {
                 if (this.cells[x][y]._active) {
@@ -69,6 +74,7 @@ class GameController {
             // console.log('died');
             this.cells[_cellX, _cellY]._active = false;
         }
+        this.cells[_cellX][_cellY].draw()
     }
 }
 
@@ -85,9 +91,14 @@ class Cell {
     }
 
     toggleActive() {
-        // this._active *= !this._active this didnt work for some reason
         this._active = this._active ? false : true
-        // console.log('im now ' + this._active)
+    }
+
+    draw() {
+        if (!active) {
+            return 'O'
+        }
+        return 'X'
     }
 }
 
