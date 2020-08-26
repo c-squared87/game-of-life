@@ -31,19 +31,19 @@ console.log('hello world')
 class GameController {
 
     constructor() {
-        // this.cells = []
+        this.cells = []
         this.generations = 0;
         this.generateGrid()
     }
 
     generateGrid() {
         for (let x = 0; x < 5; x++) {
-            cells[x] = []
+            this.cells[x] = []
             for (let y = 0; y < 5; y++) {
-                cells[x].push(new Cell(x, y, false))
+                this.cells[x].push(new Cell(x, y, false))
             }
         }
-        console.log(cells[0][2].drawCell())
+        // console.log(this.cells)
     }
 
     cycleGeneration() { // TODO: DUPLICATE A GRID THEN REASSIGN AT END.
@@ -55,29 +55,20 @@ class GameController {
         //     }
         // }
         this.generations++
-        // this.printToConsole();
+        this.printToConsole();
     }
 
     // TODO: THIS SHOULD BE A FOREACH - LATER
     printToConsole() {
-        // console.log('current gen ' + this.generations)
+        console.log('current gen ' + this.generations)
+        var _str = '[ '
         for (let i = 0; i < this.cells[i].length - 1; i++) {
-            let _str = '[ '
-            for (let j = 0; j < this.cells[j].length; j++) {
-                // _str += 'i';
-                // console.log(this.cells[i][j].name)
+            _str = '[ '
+            for (let j = 0; j < this.cells[i].length - 1; j++) {
+                _str += this.cells[i][j].drawCell()        
             }
-            // console.log(_str + ' ]' + i)
+            console.log(_str + ' ]' + i)
         }
-
-
-        /*
-        gen 2
-        [OOXOO]
-        [OOXOO]
-        [OOXOO]
-        [OOXOO]
-        */
     }
 
     //FIXME:
@@ -133,7 +124,7 @@ class Cell {
 
 // console.log(cells[0][0])
 
-let cells = []
+// let cells = []
 
 const gameController = new GameController()
 const nextButton = document.getElementById('data-next-button')
