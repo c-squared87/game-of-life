@@ -31,19 +31,19 @@ console.log('hello world')
 class GameController {
 
     constructor() {
-        this.cells = []
+        // this.cells = []
         this.generations = 0;
         this.generateGrid()
     }
 
     generateGrid() {
-        for (let x = 0; x < 10; x++) {
-            this.cells[x] = []
-            for (let y = 0; y < 10; y++) {
-                let _new = new Cell(x, y, false)
-                this.cells[x].push([_new])
+        for (let x = 0; x < 5; x++) {
+            cells[x] = []
+            for (let y = 0; y < 5; y++) {
+                cells[x].push(new Cell(x, y, false))
             }
         }
+        console.log(cells[0][2].drawCell())
     }
 
     cycleGeneration() { // TODO: DUPLICATE A GRID THEN REASSIGN AT END.
@@ -55,22 +55,22 @@ class GameController {
         //     }
         // }
         this.generations++
-        this.printToConsole();
+        // this.printToConsole();
     }
 
     // TODO: THIS SHOULD BE A FOREACH - LATER
     printToConsole() {
-        console.log('current gen ' + this.generations)
-        
+        // console.log('current gen ' + this.generations)
         for (let i = 0; i < this.cells[i].length - 1; i++) {
-            let _str = "["
-            for (let j = 0; j < this.cells[i].length; j++) {
-                _str += 'hihi'; 
+            let _str = '[ '
+            for (let j = 0; j < this.cells[j].length; j++) {
+                // _str += 'i';
+                // console.log(this.cells[i][j].name)
             }
-            console.log(_str + i)
+            // console.log(_str + ' ]' + i)
         }
 
-       
+
         /*
         gen 2
         [OOXOO]
@@ -97,16 +97,19 @@ class GameController {
             // console.log('died');
             this.cells[_cellX, _cellY]._active = false;
         }
-        this.cells[_cellX][_cellY].draw()
+        // this.cells[_cellX][_cellY].draw()
     }
 }
 
 class Cell {
+    snow
 
     constructor(_x, _y, _active) {
+
         this._x = _x
         this._y = _y
         this._active = _active
+        this.name = this._x.toString() + this._y.toString();
         // console.log(this._x + " " + this._y + " " + this._active)
         if (_x == 3) {
             this.toggleActive()
@@ -117,10 +120,20 @@ class Cell {
         this._active = this._active ? false : true
     }
 
-    draw() {
-
+    drawCell() {
+        return this.name.toString()
     }
 }
+
+// let cells = [
+//     [new Cell(1, 1, false), new Cell(2, 1, false), new Cell(3, 1, false)],
+//     [new Cell(1, 2, false), new Cell(2, 2, false), new Cell(3, 2, false)],
+//     [new Cell(1, 3, false), new Cell(2, 3, false), new Cell(3, 3, false)]
+//]
+
+// console.log(cells[0][0])
+
+let cells = []
 
 const gameController = new GameController()
 const nextButton = document.getElementById('data-next-button')
