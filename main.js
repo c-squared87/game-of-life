@@ -41,20 +41,43 @@ class GameController {
             this.cells[x] = []
             for (let y = 0; y < 10; y++) {
                 let _new = new Cell(x, y, false)
-                this.cells[x].push(_new)
+                this.cells[x].push([_new])
             }
         }
     }
 
-    cycleGeneration() { // DUPLICATE A GRID THEN REASSIGN AT END.
-        for (let x = 0; x < this.cells.length; x++) {
-            for (let y = 0; y < this.cells[x].length; y++) {
-                if (this.cells[x][y]._active) {
-                    this.checkForValidity(x, y)
-                }
-            }
-        }
+    cycleGeneration() { // TODO: DUPLICATE A GRID THEN REASSIGN AT END.
+        // for (let x = 0; x < this.cells.length; x++) {
+        //     for (let y = 0; y < this.cells[x].length; y++) {
+        //         if (this.cells[x][y]._active) {
+        //             this.checkForValidity(x, y)
+        //         }
+        //     }
+        // }
         this.generations++
+        this.printToConsole();
+    }
+
+    // TODO: THIS SHOULD BE A FOREACH - LATER
+    printToConsole() {
+        console.log('current gen ' + this.generations)
+        
+        for (let i = 0; i < this.cells[i].length - 1; i++) {
+            let _str = "["
+            for (let j = 0; j < this.cells[i].length; j++) {
+                _str += 'hihi'; 
+            }
+            console.log(_str + i)
+        }
+
+       
+        /*
+        gen 2
+        [OOXOO]
+        [OOXOO]
+        [OOXOO]
+        [OOXOO]
+        */
     }
 
     //FIXME:
@@ -95,10 +118,7 @@ class Cell {
     }
 
     draw() {
-        if (!active) {
-            return 'O'
-        }
-        return 'X'
+
     }
 }
 
