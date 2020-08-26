@@ -58,14 +58,13 @@ class GameController {
         this.printToConsole();
     }
 
-    // TODO: THIS SHOULD BE A FOREACH - LATER
     printToConsole() {
         console.log('current gen ' + this.generations)
         var _str = '[ '
         for (let i = 0; i < this.cells[i].length - 1; i++) {
             _str = '[ '
             for (let j = 0; j < this.cells[i].length - 1; j++) {
-                _str += this.cells[i][j].drawCell()        
+                _str += this.cells[i][j].drawCell()
             }
             console.log(_str + ' ]' + i)
         }
@@ -100,11 +99,8 @@ class Cell {
         this._x = _x
         this._y = _y
         this._active = _active
+
         this.name = this._x.toString() + this._y.toString();
-        // console.log(this._x + " " + this._y + " " + this._active)
-        if (_x == 3) {
-            this.toggleActive()
-        }
     }
 
     toggleActive() {
@@ -112,19 +108,10 @@ class Cell {
     }
 
     drawCell() {
-        return this.name.toString()
+        let _symbol = this._active ? 'X' : 'O'
+        return _symbol
     }
 }
-
-// let cells = [
-//     [new Cell(1, 1, false), new Cell(2, 1, false), new Cell(3, 1, false)],
-//     [new Cell(1, 2, false), new Cell(2, 2, false), new Cell(3, 2, false)],
-//     [new Cell(1, 3, false), new Cell(2, 3, false), new Cell(3, 3, false)]
-//]
-
-// console.log(cells[0][0])
-
-// let cells = []
 
 const gameController = new GameController()
 const nextButton = document.getElementById('data-next-button')
