@@ -53,15 +53,14 @@ class GameController {
 
 		for (let x = 0; x < _local.length; x++) {
 			for (let y = 0; y < _local[x].length; y++) {
-				_local[x][y].toggleActive()
-				console.log(_local[x][y].drawCell())
+				_local[x][y]._active = this.checkForValidity(x, y)
 			}
 		}
 
 		this.cells = _local
 
 		this.generations++
-		// this.printToConsole();
+		this.printToConsole();
 	}
 
 	printToConsole() {
@@ -76,10 +75,14 @@ class GameController {
 		}
 	}
 
-	//FIXME: maybe this shoudl return a bool? that can be used to set the cell value in _local
 	checkForValidity(_cellX, _cellY) {
 		let _neighbors = 0
 
+		// check against this.cells and ++neighbors
+
+		if (_neighbors <= 2 || _neighbors >= 4) {
+			return false;
+		}
 		return true
 	}
 }
