@@ -90,17 +90,7 @@ class GameController {
 	//FIXME: maybe this shoudl return a bool? that can be used to set the cell value in _local
 	checkForValidity(_cellX, _cellY) {
 		let _neighbors = 0
-		for (let x = -1; x < 2; x++) {
-			for (let y = -1; y < 2; y++) {
-				if (x != 0 && y != 0) {
-					if (this.cells[_cellX + x][_cellY + y] != undefined) { // THIS IS DOING SOMETHING WEIRD...
-						// if (this.cells[_cellX + x][_cellY + y]._active) {
-						// 	_neighbors++
-						// }
-					}
-				}
-			}
-		}
+		
 		if (_neighbors <= 1 || _neighbors >= 4) {
 			console.log('died');
 			return false;
