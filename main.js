@@ -48,31 +48,20 @@ class GameController {
 
 	}
 
-	cycleGeneration() { // TODO: DUPLICATE A GRID THEN REASSIGN AT END.
+	cycleGeneration() {
 		var _local = this.cells;
 
-		// THIS VALIDITY CHECK IS A SHIT SHOW.
-
 		for (let x = 0; x < _local.length; x++) {
-			for (let y = 0; y < _local.length; y++) {
-				if (_local[x][y]._active) {
-					// this.checkForValidity(x, y)
-					if (!this.checkForValidity(x, y)) {
-						_local[x][x].toggleActive()
-					}
-				} else {
-					if (this.checkForValidity(x, y)) {
-						_local[x][x].toggleActive()
-					}
-				}
+			for (let y = 0; y < _local[x].length; y++) {
+				_local[x][y].toggleActive()
+				console.log(_local[x][y].drawCell())
 			}
 		}
 
-		console.log(this.cells)
 		this.cells = _local
 
 		this.generations++
-		this.printToConsole();
+		// this.printToConsole();
 	}
 
 	printToConsole() {
@@ -90,11 +79,7 @@ class GameController {
 	//FIXME: maybe this shoudl return a bool? that can be used to set the cell value in _local
 	checkForValidity(_cellX, _cellY) {
 		let _neighbors = 0
-		
-		if (_neighbors <= 1 || _neighbors >= 4) {
-			console.log('died');
-			return false;
-		}
+
 		return true
 	}
 }
