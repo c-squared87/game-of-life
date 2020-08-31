@@ -53,12 +53,10 @@ class GameController {
 		var _local = this.cells
 		for (let x = 0; x < _local.length; x++) {
 			for (let y = 0; y < _local.length; y++) {
-				// _local[x][y]._active = this.checkForValidity(x, y)
-				if (_local[x][y]._active) {
-					// console.log(x + ' ' + y)
-				}
 				if (this.checkForValidity(x, y) == 3) {
 					_local[x][y]._active = true
+				} else {
+					// _local[x][y]._active = false
 				}
 			}
 		}
@@ -68,7 +66,8 @@ class GameController {
 	}
 
 	printToConsole() {
-		// console.clear()
+		console.clear()
+		console.log(this.cells)
 		console.log('current gen ' + this.generations)
 		var _str = '[ '
 		for (let i = 0; i < this.cells[i].length - 1; i++) {
