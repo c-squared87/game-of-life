@@ -24,7 +24,13 @@
             - check around
         - if _neighbors < 2 || > 3 ? !active 
     - onClick
-        - toggles active
+		- toggles active
+		
+	Any live cell with two or three live neighbours survives.
+
+	Any dead cell with three live neighbours becomes a live cell.
+
+	All other live cells die in the next generation. Similarly, all other dead cells stay dead.
 
  **/
 
@@ -36,33 +42,49 @@ class GameController {
 		this.cells = []
 		this.generations = 0;
 		this.generateGrid()
+		this.initialTesting()
 		this.printToConsole()
 	}
 
 	generateGrid() {
 		this.cells = []
-		for (let x = 0; x < 5; x++) {
+		for (let x = 0; x < 8; x++) {
 			this.cells[x] = []
-			for (let y = 0; y < 5; y++) {
+			for (let y = 0; y < 8; y++) {
 				this.cells[x].push(new Cell(x, y, false))
 			}
 		}
 	}
 
 	cycleGeneration() {
-		var _local = this.cells
-		for (let x = 0; x < _local.length; x++) {
-			for (let y = 0; y < _local.length; y++) {
-				if (this.checkForValidity(x, y) == 3) {
-					_local[x][y]._active = true
-				} else {
-					// _local[x][y]._active = false
-				}
-			}
-		}
+
+		let _local = this.cells.map(inner => inner.slice())
+
+
 		this.cells = _local
+
+		console.log(this.cells)
+
+
+
+
 		this.generations++
-		this.printToConsole();
+		// this.printToConsole();
+	}
+
+	initialTesting() {
+		/* GLIDER
+		this.cells[4][4]._active = true
+		this.cells[4][5]._active = true
+		this.cells[4][6]._active = true
+		this.cells[3][6]._active = true
+		this.cells[2][6]._active = true
+		this.cells[1][5]._active = true
+		*/
+
+		this.cells[4][4]._active = true
+		this.cells[4][5]._active = true
+		this.cells[4][6]._active = true
 	}
 
 	printToConsole() {
@@ -79,7 +101,14 @@ class GameController {
 		}
 	}
 
+	/*
+	[-1,-1]	[0,-1]	[1,-1]
+	[-1,0]	[0,0]	[1,0]
+	[-1,-1]	[0,-1]	[1,-1]
+	*/
+
 	checkForValidity(_cellX, _cellY) {
+
 		let _neighbors = 0
 
 		for (let x = -1; x < 2; x++) {
@@ -94,18 +123,16 @@ class GameController {
 					if (this.cells[_xCheck] != undefined && this.cells[_xCheck][_yCheck] != undefined) {
 						if (this.cells[_xCheck][_yCheck]._active) {
 							_neighbors++;
-
 						}
 					}
 				}
 			}
 		}
 
-		// if (_neighbors != 3) {
-		// 	return false
-		// }
-		// return true
-		return _neighbors
+		if (_neighbors === 2 || _neighbors === 3) {
+			return true
+		}
+		return false
 	}
 }
 
@@ -119,15 +146,15 @@ class Cell {
 
 		this.name = this._x.toString() + this._y.toString();
 
-		if (_x == 1 && _y == 1) {
-			this._active = true
-		}
-		if (_x == 1 && _y == 2) {
-			this._active = true
-		}
-		if (_x == 2 && _y == 1) {
-			this._active = true
-		}
+		// if (_x == 1 && _y == 1) {
+		// 	this._active = true
+		// }
+		// if (_x == 1 && _y == 2) {
+		// 	this._active = true
+		// }
+		// if (_x == 2 && _y == 1) {
+		// 	this._active = true
+		// }
 
 	}
 
